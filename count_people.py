@@ -1,12 +1,14 @@
 import os
 import glob
 import cv2
+from datetime import datetime
 from sahi import AutoDetectionModel
 from sahi.predict import get_sliced_prediction
 
-OUTPUT_DIR = "processed_images"
-MODEL_NAME = "yolov8l.pt"    # large model; swap to yolov8x.pt for max accuracy
-CONFIDENCE  = 0.15           # lower = catch more distant/partial people
+OUTPUT_DIR  = "processed_images"
+REPORT_FILE = "people_count_report.txt"
+MODEL_NAME  = "yolov8x.pt"  # extra-large model — slowest, most accurate
+CONFIDENCE  = 0.10           # low threshold to catch distant/partial people
 SLICE_SIZE  = 640            # tile size in pixels
 OVERLAP     = 0.2            # 20% tile overlap to avoid edge misses
 PERSON_CLASS_ID = 0
@@ -80,20 +82,39 @@ def main():
         cv2.imwrite(out_path, image)
         results_summary.append((filename, count))
 
-    # Summary report
+    # Build report lines
     col_w = max(len(name) for name, _ in results_summary) + 2
-    bar = "-" * (col_w + 20)
-    print()
-    print("=" * (col_w + 20))
-    print(f"{'FILE NAME':<{col_w}} {'PEOPLE COUNT':>12}")
-    print(bar)
-    for filename, count in results_summary:
-        print(f"{filename:<{col_w}} {count:>12}")
-    print(bar)
+    bar   = "-" * (col_w + 20)
     total = sum(c for _, c in results_summary)
-    print(f"{'TOTAL':<{col_w}} {total:>12}")
-    print("=" * (col_w + 20))
-    print(f"\nAnnotated images saved to: {output_dir}/")
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    report_lines = [
+        f"People Detection Report",
+        f"Generated : {timestamp}",
+        f"Model     : {MODEL_NAME}",
+        f"Confidence: {CONFIDENCE}",
+        f"",
+        "=" * (col_w + 20),
+        f"{'FILE NAME':<{col_w}} {'PEOPLE COUNT':>12}",
+        bar,
+        *[f"{name:<{col_w}} {count:>12}" for name, count in results_summary],
+        bar,
+        f"{'TOTAL':<{col_w}} {total:>12}",
+        "=" * (col_w + 20),
+        f"",
+        f"Annotated images saved to: {output_dir}/",
+    ]
+
+    # Print to terminal
+    print()
+    for line in report_lines:
+        print(line)
+
+    # Write plain-text report file
+    report_path = os.path.join(script_dir, REPORT_FILE)
+    with open(report_path, "w") as f:
+        f.write("\n".join(report_lines) + "\n")
+    print(f"\nReport saved to: {report_path}")
 
 
 if __name__ == "__main__":
