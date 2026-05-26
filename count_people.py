@@ -7,10 +7,10 @@ from insightface.app import FaceAnalysis
 
 OUTPUT_DIR      = "processed_images"
 REPORT_FILE     = "people_count_report.txt"
-TILE_SIZE       = 640    # px — smaller tiles = each face is relatively larger
+TILE_SIZE       = 480    # px — best from benchmark sweep (det20_nms40_tile480)
 OVERLAP         = 0.25   # 25% tile overlap to avoid missing faces at edges
-DET_THRESH      = 0.30   # lower = catch more distant/partial faces
-NMS_IOU_THRESH  = 0.40   # suppress duplicate boxes across overlapping tiles
+DET_THRESH      = 0.20   # best from benchmark: catches more distant/partial faces
+NMS_IOU_THRESH  = 0.40   # best from benchmark: NMS IoU had minimal effect at 0.30
 
 
 def find_jpg_files(directory: str) -> list[str]:
