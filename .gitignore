@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Model weights (large binary files)
+*.pt
+*.pth
+*.onnx
+
+# Output images
+processed_images/
+
+# Ultralytics cache
+runs/
+
+# macOS
+.DS_Store
