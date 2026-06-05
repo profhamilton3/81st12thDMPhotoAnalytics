@@ -11,11 +11,22 @@ venv/
 *.pth
 *.onnx
 
-# Output images
+# Output images (generated, not source-controlled)
 processed_images/
+benchmark_runs/
+Benchmark/benchmark_runs/
 
-# Ultralytics cache
+# Source photos (large binaries — store outside git)
+*.jpg
+*.JPG
+*.jpeg
+*.JPEG
+
+# Ultralytics / insightface cache
 runs/
+
+# Claude Code internal
+.claude/
 
 # macOS
 .DS_Store

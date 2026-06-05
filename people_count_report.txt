@@ -1,0 +1,25 @@
+People (Face) Detection Report
+Generated  : 2026-05-27 16:11:46
+Model      : insightface RetinaFace (buffalo_l)
+Det thresh : 0.2
+NMS IoU    : 0.4
+Tile size  : 480px  |  Overlap: 25%
+
+======================================================
+FILE NAME                          FACE COUNT
+------------------------------------------------------
+81st12thDMtg.jpg                          348
+DSTCRIMCRM_SBRAAC.jpg                      75
+DSTSBRAAC.jpg                              38
+DSTWAC.jpg                                 47
+OmegaFestPanHell_Reunion2026.jpg          129
+OmegaFest_Reunion2026.jpg                  69
+PiRhoChapterOutPileUp.jpg                  38
+SH50__MAIN.jpg                             67
+TLMCH10th20220731.jpg                      39
+XiPhiOPPF.jpg                              21
+------------------------------------------------------
+TOTAL                                     871
+======================================================
+
+Annotated images : /Users/terrancehamilton/Pictures/81st12thDMPhotoAnalytics/processed_images/
